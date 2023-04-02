@@ -30,7 +30,7 @@ export function CreateProject( props ) {
       },
     validationSchema: formValidationSchema,
     onSubmit: (projectDetails) => {
-      projectDetails.projectTitle = projectDetails.projectTitle.replace(/\s/g, "");
+      // projectDetails.projectTitle = projectDetails.projectTitle.replace(/\s/g, "");
       console.log(projectDetails)
       addProject(projectDetails)
     }
@@ -40,7 +40,7 @@ export function CreateProject( props ) {
 
   const addProject = async (projectDetails) => {
     
-    await fetch(`${API}/projectCreation`, {
+    const data = await fetch(`${API}/projectCreation`, {
         method: "POST",
         body: JSON.stringify(projectDetails),
         headers: {
@@ -48,8 +48,14 @@ export function CreateProject( props ) {
         },
     });
 
-    alert("Project has been Created")
-    console.log("Check your Atlas")
+    if(data.status === 404) {
+      alert("Project is Already Exists")
+    }
+    else {
+      const result = await data.json()
+      alert("Project has been Created")
+      console.log("Check your Atlas")
+    }
 };
 
   return ( props.trigger ) ? (
@@ -58,7 +64,7 @@ export function CreateProject( props ) {
 
         <div className="close-btn">
           <IconButton onClick={()=>{
-            navigate('/')
+            navigate('/dashboard')
             props.setTrigger(false)}}> 
               <CloseIcon /> 
           </IconButton> 
