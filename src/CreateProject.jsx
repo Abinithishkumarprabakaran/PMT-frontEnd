@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles';
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { API } from './global.js';
+import { useNavigate } from 'react-router-dom';
 
 const formValidationSchema = yup.object({
   projectTitle: yup
@@ -35,6 +36,8 @@ export function CreateProject( props ) {
     }
   });
 
+  const navigate = useNavigate();
+
   const addProject = async (projectDetails) => {
     
     await fetch(`${API}/projectCreation`, {
@@ -54,7 +57,11 @@ export function CreateProject( props ) {
       <form className="popup-inner" onSubmit={handleSubmit}>
 
         <div className="close-btn">
-          <IconButton onClick={()=>props.setTrigger(false)}> <CloseIcon /> </IconButton> 
+          <IconButton onClick={()=>{
+            navigate('/')
+            props.setTrigger(false)}}> 
+              <CloseIcon /> 
+          </IconButton> 
         </div>
 
         <h4 className='text-2xl font-bold'>Project Title</h4>
