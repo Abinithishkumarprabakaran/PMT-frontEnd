@@ -24,14 +24,35 @@
 
 .popup-inner {
     position: relative;
-    padding: 32px;
+    padding: 25px;
     width: 100%;
     max-width: 640px;
     background-color: #FFF;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .popup-inner .close-btn {
     position: absolute;
     top: 16px;
     right: 16px;
+}
+
+.project-btn {
+    display: flex;
+    justify-content: flex-end;
+
+    padding-top: 15px;
+}
+
+.popup-inner h4 {
+    padding: 10px 0 10px 0;
+}
+
+.description-area {
+    border: 1px rgb(192, 192, 192) solid;
+    height: 200px;
+    border-radius: 3px;
+    padding: 5px;
 }

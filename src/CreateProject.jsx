@@ -1,24 +1,91 @@
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { API } from './global.js';
+
+const formValidationSchema = yup.object({
+  projectTitle: yup
+          .string()
+          .required(),
+  projectDescription: yup
+          .string()
+          .required(),
+})
 
 export function CreateProject( props ) {
 
+  const CustomTextField = styled(TextField)({
+  height: '230px',
+  });
+
+  const {handleSubmit,handleChange,handleBlur,values,errors,touched} = useFormik({
+    initialValues: { 
+        projectTitle: '', 
+        projectDescription: '',
+      },
+    validationSchema: formValidationSchema,
+    onSubmit: (projectDetails) => {
+      projectDetails.projectTitle = projectDetails.projectTitle.replace(/\s/g, "");
+      console.log(projectDetails)
+      addProject(projectDetails)
+    }
+  });
+
+  const addProject = async (projectDetails) => {
+    
+    await fetch(`${API}/projectCreation`, {
+        method: "POST",
+        body: JSON.stringify(projectDetails),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    alert("Project has been Created")
+    console.log("Check your Atlas")
+};
+
   return ( props.trigger ) ? (
     <div className="popup">
-      <div className="popup-inner">
+      <form className="popup-inner" onSubmit={handleSubmit}>
 
-      <div className="close-btn">
-        <IconButton onClick={()=>props.setTrigger(false)}> <CloseIcon /> </IconButton> 
-      </div>
+        <div className="close-btn">
+          <IconButton onClick={()=>props.setTrigger(false)}> <CloseIcon /> </IconButton> 
+        </div>
 
-      <h4 className='text-3xl font-bold'>Project Title</h4>
-      <TextField id="outlined-basic" label="Project Title" variant="outlined" />
+        <h4 className='text-2xl font-bold'>Project Title</h4>
+        <TextField
+          name="projectTitle"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.projectTitle}
+          label="Project Title" 
+          variant="outlined" 
+          error={errors.projectTitle && touched.projectTitle}
+          helperText={errors.projectTitle && touched.projectTitle ? errors.projectTitle: null}
+          />
 
-      <h4 className='text-3xl font-bold'>Project Description</h4>
-      <TextField id="outlined-basic" label="Project Description" variant="outlined" />
+        <h4 className='text-2xl font-bold'>Project Description</h4>
+        <TextField 
+          name="projectDescription"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.projectDescription}
+          label="Project Description" 
+          variant="outlined" 
+          error={errors.projectDescription && touched.projectDescription}
+          helperText={errors.projectDescription && touched.projectDescription ? errors.projectDescription: null}
+          />
 
-      </div>
+        <div className='project-btn'>
+          <Button type="submit" variant='outlined'>Create Project</Button>
+        </div>
+
+      </form>
     </div>
   ) : "";
 }
