@@ -4,6 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import IconButton from '@mui/material/IconButton';
 import { useState, useEffect } from 'react';
 import { API } from './global.js'
+import { ProjectTool } from './ProjectTool'
 
 export function Dashboard({ setProjectButton }) {
 
@@ -12,10 +13,10 @@ export function Dashboard({ setProjectButton }) {
   return (
     <div>
       <div className="grid grid-cols-12 gap-4">
-        <div className="col-span-2 bg-gray-200 p-1">
+        <div className="card col-span-2 p-1">
 
           <div className="project-creation-btn">
-            <span className="pt-2 ">Projects</span>
+            <span className="pt-2 pl-3">Projects</span>
             <IconButton
               variant="contained" onClick={() => {
               navigate('/projectCreation');
@@ -28,8 +29,8 @@ export function Dashboard({ setProjectButton }) {
           <GetProjects />
         </div>
 
-        <div className="col-span-10 bg-gray-400 p-4">
-          
+        <div className="card col-span-10 p-4">
+          {/* <ProjectTool /> */}
         </div>
       </div>
     </div>

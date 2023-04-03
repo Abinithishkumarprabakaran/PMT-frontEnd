@@ -60,7 +60,7 @@
 .project-creation-btn {
     display: flex;
     justify-content: space-between;
-    padding-bottom: 10px;
+    padding: 10px;
 }
 
 .btns-projects {
@@ -74,6 +74,35 @@
 }
 
 .btns-projects:hover {
-    background-color: rgb(133, 215, 224)
+    background-color: rgb(96, 158, 224)
 }
 
+.home {
+    display: flex;
+    /* flex-direction:column; */
+    justify-content: center;
+}
+
+.prj-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.prj-btn div{
+    width: 240px;
+    border-radius: 30px;
+    border: 1px black solid;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.prj-btn label {
+    cursor: pointer;
+}
+
+.prj-btn div:hover {
+    cursor: pointer;
+    border-radius: 30px;
+    background-color: rgb(146, 210, 191);
+}
