@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import { CreateProject } from './CreateProject'
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
-import { Dashboard } from './Dashboard'
+import { ShowProjects } from './ShowProjects'
 import { ProjectTool } from './ProjectTool'
 import { Home } from './Home'
 import { NavBar } from './NavBar'
@@ -23,7 +23,7 @@ function App() {
         <Routes>
             <Route path='/' element={<Home setProjectButton={setProjectButton}/>} />
             <Route path="/dashboard" element={
-              <Dashboard setProjectButton={setProjectButton}/>} />
+              <ShowProjects setProjectButton={setProjectButton}/>} />
             <Route path="/projectCreation" element={
               <CreateProject trigger={projectButton} setTrigger={setProjectButton}/>
             }/>

@@ -4,9 +4,9 @@ import AddIcon from '@mui/icons-material/Add';
 import IconButton from '@mui/material/IconButton';
 import { useState, useEffect } from 'react';
 import { API } from './global.js'
-import { ProjectTool } from './ProjectTool'
+import { ProjectTool } from './ProjectTool.jsx'
 
-export function Dashboard({ setProjectButton }) {
+export function ShowProjects({ setProjectButton }) {
 
   const navigate = useNavigate();
 
