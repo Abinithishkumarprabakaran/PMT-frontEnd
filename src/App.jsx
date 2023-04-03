@@ -22,12 +22,11 @@ function App() {
         <NavBar />
         <Routes>
             <Route path='/' element={<Home setProjectButton={setProjectButton}/>} />
-            <Route path="/dashboard" element={
-              <ShowProjects setProjectButton={setProjectButton}/>} />
+            <Route path="/showprojects" element={ <ShowProjects/> } />
             <Route path="/projectCreation" element={
               <CreateProject trigger={projectButton} setTrigger={setProjectButton}/>
             }/>
-            <Route path="/dashboard/:id" element={<ProjectTool />} />
+            <Route path="/projectTool/:id" element={<ProjectTool />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
       </Paper>
