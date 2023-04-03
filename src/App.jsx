@@ -7,6 +7,7 @@ import { ProjectTool } from './ProjectTool'
 import { Home } from './Home'
 import { NavBar } from './NavBar'
 import Paper from '@mui/material/Paper';
+import { NotFound } from './NotFound';
 
 function App() {
   
@@ -27,6 +28,7 @@ function App() {
               <CreateProject trigger={projectButton} setTrigger={setProjectButton}/>
             }/>
             <Route path="/dashboard/:id" element={<ProjectTool />} />
+            <Route path="*" element={<NotFound />} />
         </Routes>
       </Paper>
     </div>
