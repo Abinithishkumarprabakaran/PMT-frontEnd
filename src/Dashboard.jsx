@@ -12,7 +12,7 @@ export function Dashboard({ setProjectButton }) {
   return (
     <div>
       <div className="grid grid-cols-12 gap-4">
-        <div className="col-span-2 bg-gray-200 p-4">
+        <div className="col-span-2 bg-gray-200 p-1">
 
           <div className="project-creation-btn">
             <span className="pt-2 ">Projects</span>
@@ -64,8 +64,8 @@ function GetProjects() {
 
 function ToDisplayProjects({ project, description}) {
   return(
-    <div className="btns-projects">
-      <button onClick={() => console.log(`${project} button Clicked`)}>{project}</button>
+    <div className="btns-projects" onClick={() => console.log(`${project} button Clicked`)}>
+      {project}
     </div>
   )
 }
