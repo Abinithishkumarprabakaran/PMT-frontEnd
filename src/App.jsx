@@ -20,7 +20,7 @@ function App() {
       <Paper sx={bgstyles} elevation={4}>
         <NavBar />
         <Routes>
-            <Route path='/' element={<Home />} />
+            <Route path='/' element={<Home setProjectButton={setProjectButton}/>} />
             <Route path="/dashboard" element={
               <Dashboard setProjectButton={setProjectButton}/>} />
             <Route path="/projectCreation" element={

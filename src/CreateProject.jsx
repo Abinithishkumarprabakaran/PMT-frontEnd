@@ -64,7 +64,7 @@ export function CreateProject( props ) {
 
         <div className="close-btn">
           <IconButton onClick={()=>{
-            navigate('/dashboard')
+            navigate('/')
             props.setTrigger(false)}}> 
               <CloseIcon /> 
           </IconButton> 

@@ -1,4 +1,9 @@
-export function Home() {
+import { useNavigate } from "react-router-dom";
+
+export function Home({ setProjectButton }) {
+
+  const navigate = useNavigate();
+
   return (
     <div>
       <div className="home">
@@ -8,7 +13,10 @@ export function Home() {
       <br></br>
 
       <div className="prj-btn">
-        <div onClick={() => console.log("Button Clicked")}>
+        <div onClick={() => {
+          navigate('/projectCreation')
+          setProjectButton(true)
+          }}>
           <label className="text-3xl font-bold">Add Project</label>
         </div>
       </div>
