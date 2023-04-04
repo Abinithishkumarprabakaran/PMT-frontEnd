@@ -9,18 +9,21 @@ import { NavBar } from './NavBar'
 import Paper from '@mui/material/Paper';
 import { NotFound } from './NotFound';
 import { UpdateProject } from './UpdateProject';
+import { CreateTask } from './CreateTask';
 
 export const triggerCtx = createContext();
 
 function App() {
   
   const [projectButton, setProjectButton] = useState(false)
+  const [taskButton, setTaskButton] = useState(false)
+
   const bgstyles = {
     borderRadius: "0px",
     minHeight: "100vh",
   }
   return (
-    <triggerCtx.Provider value={[projectButton, setProjectButton]}>
+    <triggerCtx.Provider value={[projectButton, setProjectButton, taskButton, setTaskButton]}>
       <div className="App">
         <Paper sx={bgstyles} elevation={4}>
           <NavBar />
@@ -30,6 +33,7 @@ function App() {
               <Route path="/projectCreation" element={<CreateProject /> }/>
               <Route path="/projectTool/:id" element={<ProjectTool /> } />
               <Route path="/updateProject/:id" element={<UpdateProject /> }/>
+              <Route path="/projectTool/:id/createtask" element={<CreateTask /> } />
               <Route path="*" element={<NotFound />} />
           </Routes>
         </Paper>

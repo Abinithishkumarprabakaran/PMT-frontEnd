@@ -9,7 +9,7 @@ import { triggerCtx } from "./App";
 
 export function ProjectTool() {
 
-  const [projectButton, setProjectButton] = useContext(triggerCtx)
+  const [setProjectButton, setTaskButton] = useContext(triggerCtx)
 
   const { id } = useParams();
 
@@ -39,7 +39,9 @@ export function ProjectTool() {
           </div>
           <Button 
             sx={{marginLeft:"auto"}}
-            onClick={()=>console.log("Add Task Button")}
+            onClick={()=>{
+              navigate(`/projectTool/${id}/createtask`)
+              setTaskButton(true)}}
             >Add Task</Button>
         </div>
         <div className="grid grid-cols-12 gap-4 p-5">
