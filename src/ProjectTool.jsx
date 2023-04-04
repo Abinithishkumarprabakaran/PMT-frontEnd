@@ -6,6 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useContext } from "react";
 import { triggerCtx } from "./App";
+import { ToolContents } from "./ToolContents.jsx";
 
 export function ProjectTool() {
 
@@ -44,38 +45,7 @@ export function ProjectTool() {
               setTaskButton(true)}}
             >Add Task</Button>
         </div>
-        <div className="grid grid-cols-12 gap-4 p-5">
-
-          <div className="col-span-3">
-            <div>
-              <p className="titles text-lg">Tasks</p>
-            </div>
-            <hr></hr>
-            
-          </div>
-
-          <div className="col-span-3">
-            <div>
-              <p className="titles text-lg">To do</p>
-            </div>
-            <hr></hr>
-          </div>
-
-          <div className="col-span-3">
-            <div>
-              <p className="titles text-lg">In Progress</p>
-            </div>
-            <hr></hr>
-          </div>
-
-          <div className="col-span-3">
-            <div>
-              <p className="titles text-lg">Completed</p>
-            </div>
-            <hr></hr>
-          </div>
-
-        </div>
+        <ToolContents />
       </div>
     </div>
   );
