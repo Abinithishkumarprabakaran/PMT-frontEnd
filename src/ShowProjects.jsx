@@ -38,15 +38,27 @@ function GetProjects({ id, project, description }) {
   const navigate = useNavigate();
   return (
     <div>
-      <div className="grid grid-cols-12">
-        <div className="col-span-4 p-5 border-2 border-black border-solid ">
+      <div className="flex justify-center">
+        <h1 className="font-bold text-4xl">Your Projects</h1>
+      </div>
+      <br></br>
+      {/* <div className="grid grid-cols-12">
+        <div className="col-span-4 p-5">
           {project}
         </div>
-        <div className="flex justify-around col-span-8 p-5 border-2 border-black border-solid">
+        <div className="flex justify-around col-span-8 p-5">
           {description}
           <Button variant="contained" onClick={()=>navigate(`/projectTool/${id}`)}>go to the project</Button>
         </div>
+      </div> */}
+      <div className='pb-5'>
+        <h1 className="text-3xl">{project}</h1>
+        <div className="flex pl-10">
+          <p className='pr-5'>{description}</p>
+          <Button variant="outlined" onClick={()=>navigate(`/projectTool/${id}`)}>Click here</Button>
+        </div>
       </div>
+      <hr></hr>
     </div>
   )
 }
