@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { API } from './global.js'
+import { Button } from "@mui/material";
 
 export function ProjectTool() {
 
@@ -19,33 +20,42 @@ export function ProjectTool() {
   return (
     <div>
       <div className="grid grid-cols-1">
-        <div className="col-span-1 flex justify-center">
-          <h1 className="text-3xl font-bold">{project.projectTitle}</h1>
+        <div className="col-span-1 flex pl-5 pr-5">
+          <h1 className="text-3xl font-bold ">{project.projectTitle}</h1>
+          <Button 
+            sx={{marginLeft:"auto"}}
+            onClick={()=>console.log("Add Task Button")}
+            >Add Task</Button>
         </div>
-        <div className="grid grid-cols-12 gap-2">
+        <div className="grid grid-cols-12 gap-4 p-5">
 
           <div className="col-span-3">
-            <div className="card">
-              Tasks
+            <div>
+              <p className="titles text-lg">Tasks</p>
             </div>
+            <hr></hr>
+            
           </div>
 
           <div className="col-span-3">
-            <div className="card">
-              To do
+            <div>
+              <p className="titles text-lg">To do</p>
             </div>
+            <hr></hr>
           </div>
 
           <div className="col-span-3">
-            <div className="card">
-              In Progress
+            <div>
+              <p className="titles text-lg">In Progress</p>
             </div>
+            <hr></hr>
           </div>
 
           <div className="col-span-3">
-            <div className="card">
-              Completed
+            <div>
+              <p className="titles text-lg">Completed</p>
             </div>
+            <hr></hr>
           </div>
 
         </div>

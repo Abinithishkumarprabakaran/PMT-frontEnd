@@ -106,3 +106,8 @@
     border-radius: 30px;
     background-color: rgb(146, 210, 191);
 }
+
+.titles {
+    padding: 10px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
