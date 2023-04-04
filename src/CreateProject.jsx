@@ -7,6 +7,8 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { API } from './global.js';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from "react";
+import { triggerCtx } from "./App";
 
 const formValidationSchema = yup.object({
   projectTitle: yup
@@ -18,6 +20,8 @@ const formValidationSchema = yup.object({
 })
 
 export function CreateProject( props ) {
+
+  const [projectButton, setProjectButton] = useContext(triggerCtx)
 
   const CustomTextField = styled(TextField)({
   height: '230px',
@@ -58,14 +62,14 @@ export function CreateProject( props ) {
     }
 };
 
-  return ( props.trigger ) ? (
+  return ( projectButton ) ? (
     <div className="popup">
       <form className="popup-inner" onSubmit={handleSubmit}>
 
         <div className="close-btn">
           <IconButton onClick={()=>{
             navigate('/')
-            props.setTrigger(false)}}> 
+            setProjectButton(false)}}> 
               <CloseIcon /> 
           </IconButton> 
         </div>

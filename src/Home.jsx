@@ -1,6 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { triggerCtx } from "./App";
 
-export function Home({ setProjectButton }) {
+export function Home() {
+
+  const [projectButton, setProjectButton] = useContext(triggerCtx)
 
   const navigate = useNavigate();
 

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, createContext, useContext } from 'react'
 import './App.css'
 import { CreateProject } from './CreateProject'
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
@@ -9,6 +9,8 @@ import { NavBar } from './NavBar'
 import Paper from '@mui/material/Paper';
 import { NotFound } from './NotFound';
 
+export const triggerCtx = createContext();
+
 function App() {
   
   const [projectButton, setProjectButton] = useState(false)
@@ -17,20 +19,22 @@ function App() {
     minHeight: "100vh",
   }
   return (
-    <div className="App">
-      <Paper sx={bgstyles} elevation={4}>
-        <NavBar />
-        <Routes>
-            <Route path='/' element={<Home setProjectButton={setProjectButton}/>} />
-            <Route path="/showprojects" element={ <ShowProjects/> } />
-            <Route path="/projectCreation" element={
-              <CreateProject trigger={projectButton} setTrigger={setProjectButton}/>
-            }/>
-            <Route path="/projectTool/:id" element={<ProjectTool />} />
-            <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Paper>
-    </div>
+    <triggerCtx.Provider value={[projectButton, setProjectButton]}>
+      <div className="App">
+        <Paper sx={bgstyles} elevation={4}>
+          <NavBar />
+          <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path="/showprojects" element={ <ShowProjects/> } />
+              <Route path="/projectCreation" element={
+                <CreateProject />
+              }/>
+              <Route path="/projectTool/:id" element={<ProjectTool />} />
+              <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Paper>
+      </div>
+    </triggerCtx.Provider>
   )
 }
 

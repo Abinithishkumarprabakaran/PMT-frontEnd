@@ -2,6 +2,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { API } from './global.js'
 import { Button } from "@mui/material";
+import IconButton from '@mui/material/IconButton';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 export function ProjectTool() {
 
@@ -21,7 +23,12 @@ export function ProjectTool() {
     <div>
       <div className="grid grid-cols-1">
         <div className="col-span-1 flex pl-5 pr-5">
-          <h1 className="text-3xl font-bold ">{project.projectTitle}</h1>
+          <div className="flex">
+            <h1 className="text-3xl font-bold ">{project.projectTitle}</h1>
+            <IconButton onClick={()=>console.log("Settings Icon is Clicked")}>
+              <SettingsIcon />
+            </IconButton>
+          </div>
           <Button 
             sx={{marginLeft:"auto"}}
             onClick={()=>console.log("Add Task Button")}
