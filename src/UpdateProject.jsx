@@ -1,3 +1,4 @@
+import { Navigate, useParams } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -7,7 +8,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { API } from './global.js';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { triggerCtx } from "./App";
 
 const formValidationSchema = yup.object({
@@ -19,47 +20,55 @@ const formValidationSchema = yup.object({
           .required(),
 })
 
-export function CreateProject() {
+export function UpdateProject() {
 
-  const [projectButton, setProjectButton] = useContext(triggerCtx)
+  const { id } = useParams();
 
   const CustomTextField = styled(TextField)({
   height: '230px',
   });
 
+  const [project, setProject] = useState(null)
+
+  useEffect(() => {
+    fetch(`${API}/showprojects/${id}`, {method: "GET"})
+      .then((data) => data.json())
+      .then((res) => setProject(res));
+  })
+
+  return project ? <UpdateProjectForm project={project} /> : <h2 className="text-3xl font-bold">Loading...</h2>;
+
+}
+
+function UpdateProjectForm({ project }) {
+
+  const [projectButton, setProjectButton] = useContext(triggerCtx)
+
   const {handleSubmit,handleChange,handleBlur,values,errors,touched} = useFormik({
     initialValues: { 
-        projectTitle: '', 
-        projectDescription: '',
+        projectTitle: `${project.projectTitle}`, 
+        projectDescription: `${project.projectDescription}`,
       },
     validationSchema: formValidationSchema,
     onSubmit: (projectDetails) => {
-      // projectDetails.projectTitle = projectDetails.projectTitle.replace(/\s/g, "");
       console.log(projectDetails)
-      addProject(projectDetails)
+      updateProject(projectDetails)
     }
   });
 
   const navigate = useNavigate();
 
-  const addProject = async (projectDetails) => {
+  const updateProject = async (projectDetails) => {
     
-    const data = await fetch(`${API}/projectCreation`, {
-        method: "POST",
+    const data = await fetch(`${API}/updateProject/${project._id}`, {
+        method: "PUT",
         body: JSON.stringify(projectDetails),
         headers: {
             "Content-Type": "application/json",
         },
     });
 
-    if(data.status === 404) {
-      alert("Project is Already Exists")
-    }
-    else {
-      const result = await data.json()
-      alert("Project has been Created")
-      console.log("Check your Atlas")
-    }
+    navigate(`/projectTool/${project._id}`)
 };
 
   return ( projectButton ) ? (
@@ -68,7 +77,7 @@ export function CreateProject() {
 
         <div className="close-btn">
           <IconButton onClick={()=>{
-            navigate('/')
+            navigate(`/projectTool/${project._id}`)
             setProjectButton(false)}}> 
               <CloseIcon /> 
           </IconButton> 
@@ -99,7 +108,7 @@ export function CreateProject() {
           />
 
         <div className='project-btn'>
-          <Button type="submit" variant='outlined'>Create Project</Button>
+          <Button type="submit" variant='outlined' color="success">Save</Button>
         </div>
 
       </form>

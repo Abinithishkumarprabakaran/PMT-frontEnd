@@ -8,6 +8,7 @@ import { Home } from './Home'
 import { NavBar } from './NavBar'
 import Paper from '@mui/material/Paper';
 import { NotFound } from './NotFound';
+import { UpdateProject } from './UpdateProject';
 
 export const triggerCtx = createContext();
 
@@ -26,10 +27,9 @@ function App() {
           <Routes>
               <Route path='/' element={<Home />} />
               <Route path="/showprojects" element={ <ShowProjects/> } />
-              <Route path="/projectCreation" element={
-                <CreateProject />
-              }/>
-              <Route path="/projectTool/:id" element={<ProjectTool />} />
+              <Route path="/projectCreation" element={<CreateProject /> }/>
+              <Route path="/projectTool/:id" element={<ProjectTool /> } />
+              <Route path="/updateProject/:id" element={<UpdateProject /> }/>
               <Route path="*" element={<NotFound />} />
           </Routes>
         </Paper>

@@ -1,15 +1,21 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { API } from './global.js'
 import { Button } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { useContext } from "react";
+import { triggerCtx } from "./App";
 
 export function ProjectTool() {
+
+  const [projectButton, setProjectButton] = useContext(triggerCtx)
 
   const { id } = useParams();
 
   const [project, setProject] = useState([]);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch(`${API}/showprojects/${id}`)
@@ -25,7 +31,9 @@ export function ProjectTool() {
         <div className="col-span-1 flex pl-5 pr-5">
           <div className="flex">
             <h1 className="text-3xl font-bold ">{project.projectTitle}</h1>
-            <IconButton onClick={()=>console.log("Settings Icon is Clicked")}>
+            <IconButton onClick={()=>{
+              navigate(`/updateProject/${id}`)
+              setProjectButton(true)}}>
               <SettingsIcon />
             </IconButton>
           </div>
