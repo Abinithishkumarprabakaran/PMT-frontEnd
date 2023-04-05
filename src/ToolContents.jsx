@@ -33,8 +33,9 @@ export function ToolContents() {
                 <p className="titles text-lg">Tasks</p>
               </div>  
               <hr></hr>
-              {tasks.map((val) => (
+              {tasks.map((val, index) => (
                 <TasksMapping
+                  index={index}
                   key={val._id}
                   title={val.taskTitle}
                   description={val.taskDescription}/>
@@ -92,13 +93,22 @@ export function ToolContents() {
   );
 }
 
-function TasksMapping({ title, description}) {
+function TasksMapping({ key, index, title, description}) {
   return (
-    <div className="py-2">
-      <div className="card p-3">
-        <h1 className="font-bold text-2lg pb-3">{title}</h1>
-        <p className="pl-5">{description}</p>
-      </div>
-    </div>
+    <Draggable draggableId={`draggable-${index}`} index={index}>
+      {(provided) => (
+        <div 
+          className="py-2" 
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          >
+          <div className="card p-3">
+            <h1 className="font-bold text-2lg pb-3">{title}</h1>
+            <p className="pl-5">{description}</p>
+          </div>
+        </div>
+      )}
+    </Draggable>
   )
 }
