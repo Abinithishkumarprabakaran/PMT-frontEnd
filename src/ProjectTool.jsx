@@ -7,6 +7,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { useContext } from "react";
 import { triggerCtx } from "./App";
 import { ToolContents } from "./ToolContents.jsx";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export function ProjectTool() {
 
@@ -27,26 +28,28 @@ export function ProjectTool() {
   // console.log(project)
 
   return (
-    <div>
-      <div className="grid grid-cols-1">
-        <div className="col-span-1 flex pl-5 pr-5">
-          <div className="flex">
-            <h1 className="text-3xl font-bold ">{project.projectTitle}</h1>
-            <IconButton onClick={()=>{
-              navigate(`/updateProject/${id}`)
-              setProjectButton(true)}}>
-              <SettingsIcon />
-            </IconButton>
+    <DragDropContext >
+      <div>
+        <div className="grid grid-cols-1">
+          <div className="col-span-1 flex pl-5 pr-5">
+            <div className="flex">
+              <h1 className="text-3xl font-bold ">{project.projectTitle}</h1>
+              <IconButton onClick={()=>{
+                navigate(`/updateProject/${id}`)
+                setProjectButton(true)}}>
+                <SettingsIcon />
+              </IconButton>
+            </div>
+            <Button 
+              sx={{marginLeft:"auto"}}
+              onClick={()=>{
+                navigate(`/projectTool/${id}/createtask`)
+                setTaskButton(true)}}
+              >Add Task</Button>
           </div>
-          <Button 
-            sx={{marginLeft:"auto"}}
-            onClick={()=>{
-              navigate(`/projectTool/${id}/createtask`)
-              setTaskButton(true)}}
-            >Add Task</Button>
+          <ToolContents />
         </div>
-        <ToolContents />
       </div>
-    </div>
+    </DragDropContext>
   );
 }
