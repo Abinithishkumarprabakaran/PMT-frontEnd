@@ -34,12 +34,21 @@ export function ToolContents() {
               </div>  
               <hr></hr>
               {tasks.map((val, index) => (
-                <TasksMapping
-                  index={index}
-                  key={val._id}
-                  title={val.taskTitle}
-                  description={val.taskDescription}/>
-                  ))}
+                  <Draggable draggableId={`draggable-${index}`}>
+                    {(provided)=>(
+                      <div key={val._id} 
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}>
+                      <TasksMapping
+                        index={index}
+                        key={val._id}
+                        title={val.taskTitle}
+                        description={val.taskDescription}/>
+                    </div>
+                    )}
+                  </Draggable>
+                ))}
             </div>
           )}
       </Droppable>
@@ -93,22 +102,28 @@ export function ToolContents() {
   );
 }
 
-function TasksMapping({ key, index, title, description}) {
+function TasksMapping({ index, title, description}) {
   return (
-    <Draggable draggableId={`draggable-${index}`} index={index}>
-      {(provided) => (
-        <div 
-          className="py-2" 
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          >
-          <div className="card p-3">
-            <h1 className="font-bold text-2lg pb-3">{title}</h1>
-            <p className="pl-5">{description}</p>
-          </div>
-        </div>
-      )}
-    </Draggable>
+    // <Draggable draggableId={`draggable-${index}`} index={index}>
+    //   {(provided) => (
+    //     <div 
+    //       className="py-2" 
+    //       ref={provided.innerRef}
+    //       {...provided.draggableProps}
+    //       {...provided.dragHandleProps}
+    //       >
+    //       <div className="card p-3">
+    //         <h1 className="font-bold text-2lg pb-3">{title}</h1>
+    //         <p className="pl-5">{description}</p>
+    //       </div>
+    //     </div>
+    //   )}
+    // </Draggable>
+    <div className="py-2">
+      <div className="card p-3">
+        <h1 className="font-bold text-2lg pb-3">{title}</h1>
+        <p className="pl-5">{description}</p>
+      </div>
+    </div>
   )
 }
