@@ -1,13 +1,17 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { API } from './global.js';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { listCtx } from "./ProjectTool";
 
 export function ToolContents() {
 
   const { id } = useParams();
 
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useContext(listCtx)
+  const [todos, setTodos] = useContext(listCtx)
+  const [progress, setProgress] = useContext(listCtx)
+  const [completed, setCompleted] = useContext(listCtx)
 
   const navigate = useNavigate();
 
@@ -25,7 +29,7 @@ export function ToolContents() {
       <Droppable droppableId="taskslist">
         {(provided) => (
             <div 
-                className="col-span-3 flex-col" 
+                className="col-span-3 flex-col bg-gray-500" 
                 ref={provided.innerRef} 
                 {...provided.droppableProps}
                 >
@@ -34,21 +38,13 @@ export function ToolContents() {
               </div>  
               <hr></hr>
               {tasks.map((val, index) => (
-                  <Draggable draggableId={`draggable-${index}`}>
-                    {(provided)=>(
-                      <div key={val._id} 
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}>
-                      <TasksMapping
-                        index={index}
-                        key={val._id}
-                        title={val.taskTitle}
-                        description={val.taskDescription}/>
-                    </div>
-                    )}
-                  </Draggable>
+                  <TasksMapping
+                    index={index}
+                    key={val._id}
+                    title={val.taskTitle}
+                    description={val.taskDescription}/>
                 ))}
+                {provided.placeholder}
             </div>
           )}
       </Droppable>
@@ -56,7 +52,7 @@ export function ToolContents() {
       <Droppable droppableId="todoslist">
         {(provided) => (
             <div 
-                className="col-span-3" 
+                className="col-span-3 bg-gray-500" 
                 ref={provided.innerRef} 
                 {...provided.droppableProps}
                 >
@@ -64,6 +60,7 @@ export function ToolContents() {
                 <p className="titles text-lg">To do</p>
               </div>
               <hr></hr>
+              {provided.placeholder}
             </div>
         )}
       </Droppable>
@@ -71,7 +68,7 @@ export function ToolContents() {
       <Droppable droppableId="progresslist">
         {(provided) => (
           <div 
-              className="col-span-3" 
+              className="col-span-3 bg-gray-500" 
               ref={provided.innerRef} 
               {...provided.droppableProps}
               >
@@ -79,6 +76,7 @@ export function ToolContents() {
               <p className="titles text-lg">In Progress</p>
             </div>
             <hr></hr>
+            {provided.placeholder}
           </div>
         )}
       </Droppable>
@@ -86,7 +84,7 @@ export function ToolContents() {
       <Droppable droppableId="completedlist">
         {(provided) => (
           <div 
-              className="col-span-3" 
+              className="col-span-3 flex-col bg-gray-500" 
               ref={provided.innerRef} 
               {...provided.droppableProps}
               >
@@ -94,6 +92,7 @@ export function ToolContents() {
             <p className="titles text-lg">Completed</p>
           </div>
           <hr></hr>
+          {provided.placeholder}
         </div>
         )}
       </Droppable>
@@ -104,26 +103,26 @@ export function ToolContents() {
 
 function TasksMapping({ index, title, description}) {
   return (
-    // <Draggable draggableId={`draggable-${index}`} index={index}>
-    //   {(provided) => (
-    //     <div 
-    //       className="py-2" 
-    //       ref={provided.innerRef}
-    //       {...provided.draggableProps}
-    //       {...provided.dragHandleProps}
-    //       >
-    //       <div className="card p-3">
-    //         <h1 className="font-bold text-2lg pb-3">{title}</h1>
-    //         <p className="pl-5">{description}</p>
-    //       </div>
-    //     </div>
-    //   )}
-    // </Draggable>
-    <div className="py-2">
-      <div className="card p-3">
-        <h1 className="font-bold text-2lg pb-3">{title}</h1>
-        <p className="pl-5">{description}</p>
-      </div>
-    </div>
+    <Draggable draggableId={`draggable-${index}`} index={index}>
+      {(provided) => (
+        <div 
+          className="py-2" 
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          >
+          <div className="card p-3">
+            <h1 className="font-bold text-2lg pb-3">{title}</h1>
+            <p className="pl-5">{description}</p>
+          </div>
+        </div>
+      )}
+    </Draggable>
+    // <div className="py-2">
+    //   <div className="card p-3">
+    //     <h1 className="font-bold text-2lg pb-3">{title}</h1>
+    //     <p className="pl-5">{description}</p>
+    //   </div>
+    // </div>
   )
 }
