@@ -35,7 +35,8 @@ export function ProjectTool() {
   // console.log(project)
 
   const onDragEnd = (result) => {
-    // console.log(result)
+    console.log(result)
+
     const { source, destination } = result
 
     if(!destination){
@@ -45,6 +46,51 @@ export function ProjectTool() {
       return
     }
 
+    let add,
+        active = tasks,
+        Mtodos = todos,
+        Mprogress = progress,
+        Mcompleted = completed
+
+    // we are removing from the card from the source
+    if (source.droppableId === "taskslist") {
+      add = active[source.index];
+      active.splice(source.index, 1)
+    }
+    else if (source.droppableId === "todoslist") {
+      add = Mtodos[source.index];
+      Mtodos.splice(source.index, 1)
+    }
+    else if (source.droppableId === "progresslist") {
+      add = Mprogress[source.index];
+      Mprogress.splice(source.index, 1)
+    }
+    else if (source.droppableId === "completedlist") {
+      add = Mcompleted[source.index];
+      Mcompleted.splice(source.index, 1)
+    }
+
+    // we are adding it to the destination
+    if (destination.droppableId === "taskslist") {
+      active.splice(destination.index, 0, add)
+    }
+    else if (destination.droppableId === "todoslist") {
+      Mtodos.splice(destination.index, 0, add)
+    }
+    else if (destination.droppableId === "progresslist") {
+      Mprogress.splice(destination.index, 0, add)
+    }
+    else if (destination.droppableId === "completedlist") {
+      Mcompleted.splice(destination.index, 0, add)
+    }
+
+    console.log("Mtodos:", Mtodos)
+    // update to the states
+    setTasks(active)
+    setTodos(Mtodos)
+    setProgress(Mprogress)
+    setCompleted(Mcompleted)
+    
   }
 
   return (

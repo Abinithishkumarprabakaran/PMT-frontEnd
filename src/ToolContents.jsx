@@ -21,7 +21,10 @@ export function ToolContents() {
       .then((res) => setTasks(res));
   }, []);
 
-  // console.log(tasks);
+  // console.log("tasks: ", tasks);
+  console.log("todos: ", todos);
+  // console.log("progress: ", progress);
+  // console.log("completed: ", completed);
 
   return (
     <div className="grid grid-cols-12 gap-4 p-5">
@@ -118,11 +121,5 @@ function TasksMapping({ index, title, description}) {
         </div>
       )}
     </Draggable>
-    // <div className="py-2">
-    //   <div className="card p-3">
-    //     <h1 className="font-bold text-2lg pb-3">{title}</h1>
-    //     <p className="pl-5">{description}</p>
-    //   </div>
-    // </div>
   )
 }
