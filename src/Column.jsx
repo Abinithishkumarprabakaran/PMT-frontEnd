@@ -1,10 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { API } from './global.js';
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { listCtx } from "./ProjectTool";
+import { Droppable, Draggable } from "react-beautiful-dnd";
+import { listCtx } from "./ProjectTool.jsx";
 
-export function ToolContents() {
+export function Column() {
 
   const { id } = useParams();
 

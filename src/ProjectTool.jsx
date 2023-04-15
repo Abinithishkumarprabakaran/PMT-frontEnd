@@ -6,8 +6,8 @@ import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { createContext, useContext } from "react";
 import { triggerCtx } from "./App";
-import { ToolContents } from "./ToolContents.jsx";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { Column } from "./Column.jsx";
+import { DragDropContext } from "react-beautiful-dnd";
 
 export const listCtx = createContext();
 
@@ -42,9 +42,9 @@ export function ProjectTool() {
     if(!destination){
       return
     }
-    if(destination.droppableId === source.droppableId && destination.index === source.index) {
-      return
-    }
+    // if(destination.droppableId === source.droppableId && destination.index === source.index) {
+    //   return
+    // }
 
     let add,
         active = tasks,
@@ -114,7 +114,7 @@ export function ProjectTool() {
                   setTaskButton(true)}}
                 >Add Task</Button>
             </div>
-            <ToolContents />
+            <Column />
           </div>
         </div>
       </DragDropContext>
